@@ -1,0 +1,45 @@
+
+#define __STDC_LIMIT_MACROS 
+#include <cstdlib>
+#include <cstdint>
+#include <cassert>
+#include <vector>
+#include <memory>
+#include <set>
+#include <stdexcept>
+#include <numeric>
+#include <tuple>
+#include <variant>
+#include <optional>
+#include <gsl/span>
+#include <string>
+
+//template <class T>
+//using vector = std::vector<T, MuConsoleAllocator<T>>;
+using std::vector;
+
+using std::swap;
+using std::unique_ptr;
+using std::make_unique;
+using std::set;
+using std::multiset;
+using std::logic_error;
+using std::gcd;
+using std::lcm;
+using std::tuple;
+using std::variant;
+using std::optional;
+using gsl::span;
+
+using std::string;
+using std::to_string;
+using namespace std::string_literals;
+
+class unique_buffer : public unique_ptr<void, decltype(&free)> {
+public:
+    unique_buffer(int size_bytes):
+        unique_ptr<void, decltype(&free)>(malloc(size_bytes), &free){}
+    
+    unique_buffer(std::nullptr_t ptr):
+        unique_ptr<void, decltype(&free)>(nullptr, &free){}
+};
